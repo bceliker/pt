@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<div>
+  <!-- Preview Image -->
+  {% if user.profile.image_profile %}
+  <img style="width: 150px; height: 180px" class="img-fluid rounded" src={{user.profile.image_profile.url}} alt="">
+  {% endif %}
+</div>
+    <a>User Fields</a>
+
+
+<div>
+   {{user.first_name}} {{user.last_name}}
+</div>
+
+<div>
+   {{user.last_login}}
+</div>
+
+
+
+
+
+
+
+    <!-- /.container -->
+{% endblock body %}

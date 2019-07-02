@@ -1,0 +1,80 @@
+{% load static %}
+
+
+<!-- <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}" id="bootstrap-css">  -->
+<!--<link rel="stylesheet" href="{% static 'css/bootstrap-material-design 4.1.1.min.css'%}"> -->
+
+
+
+<!-- <script src="{% static 'js/bootstrap.min.js'%}"></script> -->
+<!-- <script src="{% static 'js/jquery-3.2.1.min.js'%}"></script> -->
+
+
+<!--
+
+<link rel="stylesheet" href="{% static 'css/navbar.css'%}">
+<link rel="stylesheet" href="{% static 'css/navbar_fonts.css'%}">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet">
+-->
+
+<!------ Include the above in your HEAD tag https://bootsnipp.com/snippets/WagVr ---------->
+
+<nav class="navbar navbar-default navbar-expand-lg fixed-top">
+    <div class="container">
+        <a href="{% url 'user:dashboard'%}" class="profile-photo nav-link">
+            <div class="profile-photo-small">
+                {% if request.user.profile.image_profile %}
+                    <img src={{request.user.profile.image_profile.url}} alt="Circle Image" class="rounded-circle img-fluid">
+                {% else %}
+                    <img src= {% static 'img/user.png'%} alt="Circle Image" class="rounded-circle img-fluid">
+                {% endif %}
+            </div>
+
+            <div  >
+                <div>{{request.user.first_name}} {{request.user.last_name}} <a> ({{request.user.profile.user_grup}})</a></div>
+            </div>
+
+        <div class="ripple-container"></div>
+        </a>
+
+        <div class="navbar-translate">
+            <a class="navbar-brand" href="{% url 'user:dashboard'%}"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon">a</span>
+                <span class="navbar-toggler-icon">b</span>
+                <span class="navbar-toggler-icon">c</span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="{% url 'user:register_member'%}" class="btn btn-outline-info btn-raised btn-round " >
+                        Üye Kayıt
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'user:register_trainer'%}" class="btn btn-outline-secondary btn-raised btn-round">
+                        Eğitmen
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'user:logout'%}" class="btn btn-rose btn-raised btn-round" >
+                        Çıkış
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

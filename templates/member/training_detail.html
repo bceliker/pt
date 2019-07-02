@@ -1,0 +1,160 @@
+{% extends "layout.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block head %}
+     <!--
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+     -->
+
+     <link rel="stylesheet" href="{% static 'member/css/training_detail.css' %}">
+{% endblock head %}
+
+
+{% block body %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10">
+            <ul class="cbp_tmtimeline">
+                <li>
+                    <time class="cbp_tmtime" datetime="2017-11-04T18:30">
+                        <span class="hidden">{{user.first_name}} {{user.last_name}}</span>
+                        <span class="large">
+                            ...
+                        </span>
+                    </time>
+                    <div class="cbp_tmicon profile-photo-small">
+                        {% if user.profile.image_profile %}
+
+                            <img src="{{user.profile.image_profile.url}}" alt="Circle Image" class="img-fluid">
+
+                        {% else %}
+                            <img src= "{% static 'img/user.png'%}" alt="Circle Image" class="rounded-circle img-fluid">
+                        {% endif %}
+                    </div>
+
+                    <!-- <div class="cbp_tmicon"><i class="zmdi zmdi-account"></i></div>-->
+
+                    <!-- <div class="cbp_tmlabel empty"> <span>  -->
+                    <!-- Add New Transaction -->
+                    <div class="cbp_tmlabel empty">
+                        <span>
+                        <a type="button" class="btn btn-white" data-toggle="modal" data-target="#exampleModal"> Add New</a>
+                    </span>
+                    </div>
+                </li>
+
+
+
+                {% for transaction in transaction %}
+                 <li>
+                    <time class="cbp_tmtime" datetime={{ transaction.date }}><span>{{ transaction.date|date:'d-M-Y'}}</span> <span>{{ transaction.date|date:'W'}} Hft / {{ transaction.time }}:00</span></time>
+                    <div class="cbp_tmicon bg-transparent">
+                        {% if transaction.trainer.profile.image_profile %}
+                            <img src=" {{transaction.trainer.profile.image_profile.url}}" alt="Circle Image" class="rounded-circle img-fluid">
+                        {% else %}
+                            <img src= "{% static 'img/user.png'%}" alt="Circle Image" class="rounded-circle img-fluid">
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="cbp_tmlabel">
+                        <div class="row float-right" >
+                            <div style="width: 30px; height: 30px;" >
+                                <img src= "{% static 'img/squats-filled.png' %}"  class="img-fluid" title="Squat">
+                            </div>
+                            <div style="width: 30px; height: 30px;" >
+                                <img src= "{% static 'img/pilates-filled.png' %}"  class="img-fluid" title="Squat">
+                            </div>
+
+                        </div>
+                        <h2><a href="javascript:void(0);">{{ transaction.trainer.first_name }} {{ transaction.trainer.last_name }}</a>
+                            <span> hacamızla ders yaptınız</span></h2>
+                        <p>{{ transaction.note }}</p>
+
+                    </div>
+
+                </li>
+                {% endfor %}
+
+
+
+
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form enctype="multipart/form-data" class="form" method="post" id="registrationForm">
+        {% csrf_token%}
+        {{form.media}}
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">--{{user.first_name}} {{user.last_name}}--</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+
+        <div class="modal-body">
+            <div class="form-row">
+                <div class="form-group col-6">
+                    <label for="training_date">Gün</label>
+                    <input type="date" class="form-control" id="training_date" name="date" value={{ date|date:'Y-m-d' }}>
+                </div>
+
+
+                <div class="form-group col-6">
+                    <label for="id_hour">Saat</label>
+                     <select name="time " class="select form-control" id="id_hour">
+                        <option selected value={{time_now}}> {{time_now}}</option>
+
+                        {% for time in time %}
+
+                        <option value={{time}}> {{time}}</option>
+                        {% endfor %}
+                     </select>
+                </div>
+             </div>
+
+
+
+            <label for="id_trainer">Eğitmen</label>
+            <select name="trainer" class="select form-control" id="id_trainer">
+                {% if request.user.profile.user_grup == 'Eğitmen' %}
+                    <option selected value={{ request.user.id }}>{{ request.user }}</option>
+                {% else %}
+                    <option value= {{form.trainer}}</option>
+                {% endif %}
+            </select>
+
+            {{form.note|as_crispy_field}}
+
+
+        </div>
+
+        <div class="modal-footer">
+           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+           <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</div>
+{% endblock body%}
+
+
+{% block scripts %}
+
+
+{% endblock scripts%}

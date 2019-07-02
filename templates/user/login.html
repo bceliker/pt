@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+     <!--
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'user/css/login.css'%}">
+<!--
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+-->
+
+    <title>PT Login</title>
+</head>
+<body>
+
+
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+    <h2>Hoşgeldin</h2>
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <!--
+      <img src="http://ani-theme.strapui.com/images/flat-avatar.png"  id="icon" alt="User Icon" />
+      -->
+       <img src="{% static 'img/login.png'%}"  id="icon" alt="User Icon" />
+    </div>
+
+    <!-- Login Form -->
+    <form method="post">
+      {% csrf_token%}
+      <input type="text" id="login" class="fadeIn second" name="username" placeholder="kullanıcı adı">
+      <input type="text" id="password" class="fadeIn third" name="password" placeholder="şifre">
+      <input type="submit" class="fadeIn fourth" value="Giriş Yap">
+    </form>
+
+      <!-- Error Messages -->
+     <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == "info" %}
+                    <div {% if message.tags %} class="alert alert-danger"{% endif %}>{{ message }}</div>
+                {% else %}
+                    <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        {% block body %}
+        {% endblock %}
+
+    </div>
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <a class="underlineHover" href="#">Şifremi Unuttum?</a>
+    </div>
+
+  </div>
+</div>
+
+<script src="{% static 'js/jquery-3.2.1.min.js'%}"></script>
+<script src="{% static 'js/bootstrap.min.js'%}"></script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
